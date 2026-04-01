@@ -6,6 +6,10 @@ on:
     paths:
       - "supabase/**"
 
+concurrency:
+  group: deploy-supabase
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
