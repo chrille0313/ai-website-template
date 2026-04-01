@@ -1,5 +1,5 @@
-import baseConfig from "@repo/eslint-config/base";
-import reactConfig from "@repo/eslint-config/react";
+import baseConfig from "@workspace/eslint-config/base";
+import reactConfig from "@workspace/eslint-config/react";
 import prettier from "eslint-config-prettier";
 
 export default [

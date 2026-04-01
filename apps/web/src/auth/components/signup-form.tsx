@@ -1,34 +1,37 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "@tanstack/react-router";
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
-import { Label } from "@repo/ui/components/label";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui/components/input";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/card";
+} from "@workspace/ui/components/card";
+import { Field, FieldLabel, FieldError } from "@workspace/ui/components/field";
+import { Spinner } from "@workspace/ui/components/spinner";
 import { useSignUp } from "../hooks";
-import { signupSchema, type SignupFormValues } from "../schemas";
+import { signupSchema } from "../schemas";
 
 export function SignupForm() {
   const signUp = useSignUp();
+  const navigate = useNavigate();
 
-  const form = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
+  const form = useForm({
     defaultValues: {
       email: "",
       password: "",
       confirmPassword: "",
     },
+    validators: {
+      onSubmit: signupSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await signUp.mutateAsync({ email: value.email, password: value.password });
+      navigate({ to: "/auth/confirm-email" });
+    },
   });
-
-  function onSubmit(values: SignupFormValues) {
-    signUp.mutate({ email: values.email, password: values.password });
-  }
 
   return (
     <Card className="w-full max-w-md">
@@ -37,50 +40,83 @@ export function SignupForm() {
         <CardDescription>Enter your details to get started</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="you@example.com"
-              {...form.register("email")}
-            />
-            {form.formState.errors.email && (
-              <p className="text-destructive text-sm">{form.formState.errors.email.message}</p>
-            )}
-          </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+          className="flex flex-col gap-4"
+        >
+          <form.Field
+            name="email"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                  <Input
+                    id={field.name}
+                    type="email"
+                    placeholder="you@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" {...form.register("password")} />
-            {form.formState.errors.password && (
-              <p className="text-destructive text-sm">{form.formState.errors.password.message}</p>
-            )}
-          </div>
+          <form.Field
+            name="password"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                  <Input
+                    id={field.name}
+                    type="password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm password</Label>
-            <Input id="confirmPassword" type="password" {...form.register("confirmPassword")} />
-            {form.formState.errors.confirmPassword && (
-              <p className="text-destructive text-sm">
-                {form.formState.errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
+          <form.Field
+            name="confirmPassword"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
+                  <Input
+                    id={field.name}
+                    type="password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
 
           {signUp.error && <p className="text-destructive text-sm">{signUp.error.message}</p>}
 
           <Button type="submit" className="w-full" disabled={signUp.isPending}>
-            {signUp.isPending ? "Creating account..." : "Create account"}
+            {signUp.isPending && <Spinner />}
+            Create account
           </Button>
-
-          <p className="text-muted-foreground text-center text-sm">
-            Already have an account?{" "}
-            <Link to="/auth/login" className="text-primary underline">
-              Log in
-            </Link>
-          </p>
         </form>
       </CardContent>
     </Card>

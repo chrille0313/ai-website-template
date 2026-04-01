@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { authKeys, userQueryOptions } from "./queries";
 import { signInWithEmail, signUp, signOut } from "./mutations";
@@ -46,11 +47,13 @@ export function useSignUp() {
 
 export function useSignOut() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: signOut,
     onSuccess: () => {
       queryClient.clear();
+      navigate({ to: "/auth/login" });
     },
   });
 }

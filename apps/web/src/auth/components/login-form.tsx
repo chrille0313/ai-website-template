@@ -1,33 +1,36 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "@tanstack/react-router";
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
-import { Label } from "@repo/ui/components/label";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui/components/input";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/card";
+} from "@workspace/ui/components/card";
+import { Field, FieldLabel, FieldError } from "@workspace/ui/components/field";
+import { Spinner } from "@workspace/ui/components/spinner";
 import { useSignIn } from "../hooks";
-import { loginSchema, type LoginFormValues } from "../schemas";
+import { loginSchema } from "../schemas";
 
 export function LoginForm() {
   const signIn = useSignIn();
+  const navigate = useNavigate();
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
+    validators: {
+      onSubmit: loginSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await signIn.mutateAsync(value);
+      navigate({ to: "/dashboard" });
+    },
   });
-
-  function onSubmit(values: LoginFormValues) {
-    signIn.mutate(values);
-  }
 
   return (
     <Card className="w-full max-w-md">
@@ -36,40 +39,62 @@ export function LoginForm() {
         <CardDescription>Enter your email and password to access your account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="you@example.com"
-              {...form.register("email")}
-            />
-            {form.formState.errors.email && (
-              <p className="text-destructive text-sm">{form.formState.errors.email.message}</p>
-            )}
-          </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+          className="flex flex-col gap-4"
+        >
+          <form.Field
+            name="email"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                  <Input
+                    id={field.name}
+                    type="email"
+                    placeholder="you@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" {...form.register("password")} />
-            {form.formState.errors.password && (
-              <p className="text-destructive text-sm">{form.formState.errors.password.message}</p>
-            )}
-          </div>
+          <form.Field
+            name="password"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                  <Input
+                    id={field.name}
+                    type="password"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
 
           {signIn.error && <p className="text-destructive text-sm">{signIn.error.message}</p>}
 
           <Button type="submit" className="w-full" disabled={signIn.isPending}>
-            {signIn.isPending ? "Signing in..." : "Sign in"}
+            {signIn.isPending && <Spinner />}
+            Sign in
           </Button>
-
-          <p className="text-muted-foreground text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link to="/auth/signup" className="text-primary underline">
-              Sign up
-            </Link>
-          </p>
         </form>
       </CardContent>
     </Card>

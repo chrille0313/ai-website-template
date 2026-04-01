@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@repo/ui/*": ["./src/*"]
+      "@workspace/ui/*": ["./src/*"]
     }
   },
   "include": ["src"]

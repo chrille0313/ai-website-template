@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "@/integrations/tanstack-router/router";
 import "./env";
-import "./index.css";
+import "@workspace/ui/styles/globals.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

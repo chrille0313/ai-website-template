@@ -1,5 +1,5 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@workspace/eslint-config",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,15 +7,15 @@
     "./base": "./base.js",
     "./react": "./react.js"
   },
-  "dependencies": {
-    "@eslint/js": "^9",
-    "typescript-eslint": "^8",
-    "eslint-plugin-react-hooks": "^5",
-    "eslint-plugin-react-refresh": "^0.4",
-    "@tanstack/eslint-plugin-query": "^5",
-    "@tanstack/eslint-plugin-router": "^1"
-  },
   "peerDependencies": {
     "eslint": "^9"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tanstack/eslint-plugin-query": "^5.96.0",
+    "@tanstack/eslint-plugin-router": "^1.161.6",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "typescript-eslint": "^8.58.0"
   }
 }

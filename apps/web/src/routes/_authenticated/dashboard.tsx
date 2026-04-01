@@ -1,13 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Button } from "@repo/ui/components/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/card";
-import { useUser, useSignOut } from "@/auth/hooks";
+} from "@workspace/ui/components/card";
+import { useUser } from "@/auth/hooks";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardPage,
@@ -15,14 +15,13 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 function DashboardPage() {
   const { data: user } = useUser();
-  const signOut = useSignOut();
 
   return (
     <div className="container mx-auto max-w-4xl py-10">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <Button variant="outline" onClick={() => signOut.mutate()} disabled={signOut.isPending}>
-          {signOut.isPending ? "Signing out..." : "Sign out"}
+        <Button variant="outline" asChild>
+          <Link to="/auth/logout">Sign out</Link>
         </Button>
       </div>
 
