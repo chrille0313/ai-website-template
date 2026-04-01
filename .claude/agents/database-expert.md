@@ -16,9 +16,6 @@ When working with the database:
 5. After schema changes, regenerate types with `pnpm db:gen-types`
 6. Test migrations locally with `pnpm db:reset` before pushing
 
-Key files:
-- `supabase/config.toml` — Supabase configuration
-- `supabase/migrations/` — SQL migration files
-- `supabase/seed.sql` — Seed data for local dev
-- `apps/web/src/integrations/supabase/types.gen.ts` — Generated types
-- `apps/web/src/integrations/supabase/client.ts` — Client singleton
+Key locations:
+- `supabase/` — config, migrations, seed data, edge functions
+- `**/integrations/supabase/` — client singleton and generated types in each app
