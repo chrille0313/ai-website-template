@@ -15,6 +15,9 @@ sed -i "s/project_id = \"react-supabase-template\"/project_id = \"$PROJECT_NAME\
 # Update README title
 sed -i "1s/.*/# ${PROJECT_NAME}/" README.md
 
+# Update CLAUDE.md title
+sed -i "1s/.*/# ${PROJECT_NAME}/" CLAUDE.md
+
 echo "Done! Project renamed to: $PROJECT_NAME"
 echo ""
 echo "Next steps:"
