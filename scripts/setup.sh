@@ -15,10 +15,6 @@ sed -i "s/project_id = \"react-supabase-template\"/project_id = \"$PROJECT_NAME\
 # Update README title
 sed -i "1s/.*/# ${PROJECT_NAME}/" README.md
 
-# Remove this setup script
-rm -f scripts/setup.sh
-rmdir scripts 2>/dev/null || true
-
 echo "Done! Project renamed to: $PROJECT_NAME"
 echo ""
 echo "Next steps:"
