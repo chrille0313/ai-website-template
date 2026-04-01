@@ -17,5 +17,6 @@ When working with the database:
 6. Test migrations locally with `pnpm db:reset` before pushing
 
 Key locations:
+
 - `supabase/` — config, migrations, seed data, edge functions
 - `**/integrations/supabase/` — client singleton and generated types in each app

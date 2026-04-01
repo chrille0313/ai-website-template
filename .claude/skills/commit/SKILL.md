@@ -10,6 +10,7 @@ Stage and commit changes using conventional commits. Split into modular, logical
 The title describes **what** changed. The description describes **why** — the intent, motivation, or problem being solved.
 
 Good:
+
 ```
 feat(auth): add session timeout
 
@@ -26,6 +27,7 @@ Disable the button while the mutation is pending.
 ```
 
 Bad:
+
 ```
 feat(auth): add session timeout
 

@@ -102,31 +102,32 @@ src/
 
 Managed with [T3 Env](https://env.t3.gg/docs/core) for type-safe validation. Schema is in `apps/web/src/env.ts`.
 
-| File | Purpose | Committed |
-|------|---------|-----------|
-| `apps/web/.env` | Public variables (host, port, Supabase URL) | Yes |
-| `apps/web/.env.development` | Local dev overrides (local Supabase credentials) | Yes |
-| `apps/web/.env.local` | Private overrides | No |
+| File                        | Purpose                                          | Committed |
+| --------------------------- | ------------------------------------------------ | --------- |
+| `apps/web/.env`             | Public variables (host, port, Supabase URL)      | Yes       |
+| `apps/web/.env.development` | Local dev overrides (local Supabase credentials) | Yes       |
+| `apps/web/.env.local`       | Private overrides                                | No        |
 
 To add a new env var:
+
 1. Add it to the schema in `src/env.ts`
 2. Add it to `runtimeEnvStrict` in the same file
 3. Set its value in the appropriate `.env` file
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Production build |
-| `pnpm typecheck` | TypeScript type checking |
-| `pnpm lint` | ESLint |
-| `pnpm format` | Format with Prettier |
-| `pnpm format:check` | Check formatting |
-| `pnpm test` | Run tests |
-| `pnpm db:start` | Start local Supabase |
-| `pnpm db:stop` | Stop local Supabase |
-| `pnpm db:reset` | Reset local database |
+| Command             | Description                                    |
+| ------------------- | ---------------------------------------------- |
+| `pnpm dev`          | Start development server                       |
+| `pnpm build`        | Production build                               |
+| `pnpm typecheck`    | TypeScript type checking                       |
+| `pnpm lint`         | Lint with Biome                                |
+| `pnpm format`       | Format with Biome                              |
+| `pnpm format:check` | Check formatting                               |
+| `pnpm test`         | Run tests                                      |
+| `pnpm db:start`     | Start local Supabase                           |
+| `pnpm db:stop`      | Stop local Supabase                            |
+| `pnpm db:reset`     | Reset local database                           |
 | `pnpm db:gen-types` | Generate TypeScript types from Supabase schema |
 
 ## Key Patterns
@@ -204,13 +205,13 @@ Email confirmation is disabled locally. Emails can be viewed at `http://localhos
 
 Run in parallel on every PR:
 
-| Workflow | Description |
-|----------|-------------|
-| **Typecheck** | TypeScript type checking |
-| **Lint** | ESLint |
-| **Format** | Prettier formatting check |
-| **Build** | Production build |
-| **Commitlint** | Validates commit messages |
+| Workflow           | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| **Typecheck**      | TypeScript type checking                                            |
+| **Lint**           | Biome linting                                                       |
+| **Format**         | Biome formatting check                                              |
+| **Build**          | Production build                                                    |
+| **Commitlint**     | Validates commit messages                                           |
 | **Generate Types** | Checks Supabase types haven't drifted (only on `supabase/` changes) |
 
 ### Supabase Deployment
@@ -222,28 +223,28 @@ Deploys automatically on push to `main` or `develop` via `deploy-supabase.yml` (
 1. Go to **Settings > Environments**, create `production` and `staging`
 2. For each environment, add:
 
-| Type | Name | Description |
-|------|------|-------------|
-| Variable | `SUPABASE_PROJECT_REF` | Your Supabase project reference ID |
-| Secret | `SUPABASE_ACCESS_TOKEN` | From [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens) |
+| Type     | Name                    | Description                                                                                 |
+| -------- | ----------------------- | ------------------------------------------------------------------------------------------- |
+| Variable | `SUPABASE_PROJECT_REF`  | Your Supabase project reference ID                                                          |
+| Secret   | `SUPABASE_ACCESS_TOKEN` | From [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens) |
 
 3. Add secrets for any `env()` references in `supabase/config.toml`. These correspond to features you enable in the config — common examples:
 
-| Secret | Feature |
-|--------|---------|
-| `SMTP_PASSWORD` | Email delivery ([auth.email.smtp]) |
+| Secret                                    | Feature                               |
+| ----------------------------------------- | ------------------------------------- |
+| `SMTP_PASSWORD`                           | Email delivery ([auth.email.smtp])    |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` | Google OAuth ([auth.external.google]) |
-| `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET` | Google OAuth ([auth.external.google]) |
-| `TURNSTILE_SECRET` | Captcha ([auth.captcha]) |
+| `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET`    | Google OAuth ([auth.external.google]) |
+| `TURNSTILE_SECRET`                        | Captcha ([auth.captcha])              |
 
 4. (Recommended) Add **required reviewers** on `production` to gate deploys
 
 #### Branch to Environment Mapping
 
-| Branch | Environment |
-|--------|-------------|
-| `main` | `production` |
-| `develop` / `development` | `staging` |
+| Branch                    | Environment  |
+| ------------------------- | ------------ |
+| `main`                    | `production` |
+| `develop` / `development` | `staging`    |
 
 ### Frontend Deployment
 
