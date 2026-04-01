@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:tanstack.com)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:supabase.com)",
+      "WebFetch(domain:makerkit.dev)",
+      "WebFetch(domain:deepwiki.com)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm format:check)",
+      "WebFetch(domain:env.t3.gg)",
+      "Bash(npm view:*)"
+    ]
+  }
+}
