@@ -1,0 +1,72 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:react.dev)",
+      "WebFetch(domain:typescriptlang.org)",
+      "WebFetch(domain:vite.dev)",
+      "WebFetch(domain:tanstack.com)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:radix-ui.com)",
+      "WebFetch(domain:tailwindcss.com)",
+      "WebFetch(domain:supabase.com)",
+      "WebFetch(domain:zod.dev)",
+      "WebFetch(domain:env.t3.gg)",
+      "WebFetch(domain:lucide.dev)",
+      "WebFetch(domain:turbo.build)",
+      "WebFetch(domain:pnpm.io)",
+      "WebFetch(domain:eslint.org)",
+      "WebFetch(domain:typescript-eslint.io)",
+      "WebFetch(domain:prettier.io)",
+      "WebFetch(domain:commitlint.js.org)",
+      "WebFetch(domain:conventionalcommits.org)",
+      "WebFetch(domain:vitest.dev)",
+      "WebFetch(domain:testing-library.com)",
+      "WebFetch(domain:deno.com)",
+      "WebFetch(domain:docs.deno.com)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:git-scm.com)",
+      "WebFetch(domain:docs.docker.com)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git remote:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm format:check:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm db:*)",
+      "Bash(npx supabase:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} pnpm exec prettier --write --ignore-unknown {}"
+          }
+        ]
+      }
+    ]
+  }
+}
