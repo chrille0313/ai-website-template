@@ -187,7 +187,7 @@ Email confirmation is disabled locally. Emails can be viewed at `http://localhos
 
 ### Edge Functions
 
-Edge functions live in `supabase/functions/` and run on the [Deno runtime](https://supabase.com/docs/guides/functions), separate from the Node.js workspace.
+[Edge functions](https://supabase.com/docs/guides/functions) live in `supabase/functions/` and run on the [Deno](https://deno.com/) runtime, separate from the Node.js workspace.
 
 ## CI/CD
 
