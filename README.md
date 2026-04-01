@@ -1,4 +1,4 @@
-# AI Website Template
+# React Supabase Template
 
 A production-ready monorepo template for building web applications with React, Vite, TanStack, shadcn/ui, and Supabase.
 
@@ -245,8 +245,6 @@ The workflow uses **GitHub Environments** for environment-specific secrets:
 | `SMTP_PASSWORD` | Email SMTP |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` | Google OAuth |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET` | Google OAuth |
-| `SUPABASE_AUTH_EXTERNAL_GITHUB_CLIENT_ID` | GitHub OAuth |
-| `SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET` | GitHub OAuth |
 | `TURNSTILE_SECRET` | Captcha |
 
 5. (Recommended) Add **required reviewers** on the `production` environment to gate production deploys.
