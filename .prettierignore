@@ -1,6 +1,0 @@
-dist
-node_modules
-.turbo
-*.gen.ts
-pnpm-lock.yaml
-supabase/.temp

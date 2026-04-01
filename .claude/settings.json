@@ -18,9 +18,7 @@
       "WebFetch(domain:lucide.dev)",
       "WebFetch(domain:turbo.build)",
       "WebFetch(domain:pnpm.io)",
-      "WebFetch(domain:eslint.org)",
-      "WebFetch(domain:typescript-eslint.io)",
-      "WebFetch(domain:prettier.io)",
+      "WebFetch(domain:biomejs.dev)",
       "WebFetch(domain:commitlint.js.org)",
       "WebFetch(domain:conventionalcommits.org)",
       "WebFetch(domain:vitest.dev)",
@@ -69,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} pnpm exec prettier --write --ignore-unknown {}"
+            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} pnpm exec biome check --fix --unsafe {}"
           }
         ]
       }

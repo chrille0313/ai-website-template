@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { signInWithEmail, signOut, signUp } from "./mutations";
 import { authKeys, userQueryOptions } from "./queries";
-import { signInWithEmail, signUp, signOut } from "./mutations";
 
 export function useUser() {
   const queryClient = useQueryClient();

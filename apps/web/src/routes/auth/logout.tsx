@@ -1,12 +1,12 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { Spinner } from "@workspace/ui/components/spinner";
 import {
   Empty,
+  EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-  EmptyDescription,
 } from "@workspace/ui/components/empty";
+import { Spinner } from "@workspace/ui/components/spinner";
 import { signOut } from "@/auth/mutations";
 import { authKeys } from "@/auth/queries";
 
