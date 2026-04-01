@@ -14,7 +14,11 @@
       "Bash(pnpm format:*)",
       "Bash(pnpm format:check)",
       "WebFetch(domain:env.t3.gg)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//d/Github/ai-website-template/**)",
+      "Bash(done)"
     ]
   }
 }
