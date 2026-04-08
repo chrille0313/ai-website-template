@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
+
 import { supabase } from "@/integrations/supabase/client";
+
 import { signInWithEmail, signOut, signUp } from "./mutations";
 import { authKeys, userQueryOptions } from "./queries";
 
@@ -27,8 +29,8 @@ export function useSignIn() {
   return useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       signInWithEmail(email, password),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: authKeys.user });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: authKeys.user });
     },
   });
 }
@@ -39,8 +41,8 @@ export function useSignUp() {
   return useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       signUp(email, password),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: authKeys.user });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: authKeys.user });
     },
   });
 }
@@ -53,7 +55,7 @@ export function useSignOut() {
     mutationFn: signOut,
     onSuccess: () => {
       queryClient.clear();
-      navigate({ to: "/auth/login" });
+      void navigate({ to: "/auth/login" });
     },
   });
 }

@@ -11,6 +11,7 @@ import {
 import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import { Spinner } from "@workspace/ui/components/spinner";
+
 import { useSignIn } from "../hooks";
 import { loginSchema } from "../schemas";
 
@@ -28,7 +29,7 @@ export function LoginForm() {
     },
     onSubmit: async ({ value }) => {
       await signIn.mutateAsync(value);
-      navigate({ to: "/dashboard" });
+      void navigate({ to: "/dashboard" });
     },
   });
 
@@ -42,7 +43,7 @@ export function LoginForm() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
           className="flex flex-col gap-4"
         >

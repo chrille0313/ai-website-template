@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+
 import { SignupForm } from "@/auth/components/signup-form";
 import { userQueryOptions } from "@/auth/queries";
 

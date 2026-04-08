@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+
 import { useUser } from "@/auth/hooks";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({

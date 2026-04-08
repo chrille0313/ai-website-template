@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "lint": "biome check .",
-    "lint:fix": "biome check --fix .",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
     "typecheck": "turbo typecheck",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "test": "turbo test",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
@@ -17,16 +17,19 @@
     "db:gen-types": "supabase gen types typescript --local > apps/web/src/integrations/supabase/types.gen.ts",
     "prepare": "husky"
   },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@workspace/lint-config": "workspace:*",
+    "husky": "^9.1.7",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
+    "oxlint-tsgolint": "^0.20.0",
+    "turbo": "^2.9.3"
+  },
   "engines": {
     "node": ">=24",
     "pnpm": ">=10"
   },
-  "packageManager": "pnpm@10.33.0",
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
-    "husky": "^9.1.7",
-    "turbo": "^2.9.3"
-  }
+  "packageManager": "pnpm@10.33.0"
 }

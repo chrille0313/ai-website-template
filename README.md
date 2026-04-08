@@ -23,7 +23,8 @@ A production-ready monorepo template for building web applications with React, V
 - [**Zod 4**](https://zod.dev/) — schema validation
 - [**T3 Env**](https://env.t3.gg/) — type-safe environment variables (strict mode)
 - [**Turborepo**](https://turbo.build/) — monorepo task orchestration with caching
-- [**ESLint**](https://eslint.org/) + [**Prettier**](https://prettier.io/) — linting and formatting
+- [**oxlint**](https://oxc.rs/docs/guide/usage/linter) — fast linting with type-aware rules
+- [**oxfmt**](https://oxc.rs/docs/guide/usage/formatter) — fast formatting with import and Tailwind class sorting
 - [**Commitlint**](https://commitlint.js.org/) + [**Husky**](https://typicode.github.io/husky/) — conventional commit messages
 
 ## Prerequisites
@@ -73,7 +74,7 @@ The app runs at `http://localhost:8080` by default (configurable in `apps/web/.e
 │           └── routes/             # File-based routes
 ├── packages/
 │   ├── ui/                         # Shared shadcn/ui components
-│   └── eslint-config/              # Shared ESLint configuration
+│   └── lint-config/                # Shared oxlint and oxfmt configuration
 └── supabase/                       # Config, migrations, edge functions
 ```
 
@@ -121,8 +122,9 @@ To add a new env var:
 | `pnpm dev`          | Start development server                       |
 | `pnpm build`        | Production build                               |
 | `pnpm typecheck`    | TypeScript type checking                       |
-| `pnpm lint`         | Lint with Biome                                |
-| `pnpm format`       | Format with Biome                              |
+| `pnpm lint`         | Lint with oxlint                               |
+| `pnpm lint:fix`     | Lint and auto-fix                              |
+| `pnpm format`       | Format with oxfmt                              |
 | `pnpm format:check` | Check formatting                               |
 | `pnpm test`         | Run tests                                      |
 | `pnpm db:start`     | Start local Supabase                           |
@@ -208,8 +210,8 @@ Run in parallel on every PR:
 | Workflow           | Description                                                         |
 | ------------------ | ------------------------------------------------------------------- |
 | **Typecheck**      | TypeScript type checking                                            |
-| **Lint**           | Biome linting                                                       |
-| **Format**         | Biome formatting check                                              |
+| **Lint**           | oxlint with GitHub annotations                                     |
+| **Format**         | oxfmt formatting check                                              |
 | **Build**          | Production build                                                    |
 | **Commitlint**     | Validates commit messages                                           |
 | **Generate Types** | Checks Supabase types haven't drifted (only on `supabase/` changes) |

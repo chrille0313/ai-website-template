@@ -11,6 +11,7 @@ import {
 import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import { Spinner } from "@workspace/ui/components/spinner";
+
 import { useSignUp } from "../hooks";
 import { signupSchema } from "../schemas";
 
@@ -29,7 +30,7 @@ export function SignupForm() {
     },
     onSubmit: async ({ value }) => {
       await signUp.mutateAsync({ email: value.email, password: value.password });
-      navigate({ to: "/auth/confirm-email" });
+      void navigate({ to: "/auth/confirm-email" });
     },
   });
 
@@ -43,7 +44,7 @@ export function SignupForm() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            form.handleSubmit();
+            void form.handleSubmit();
           }}
           className="flex flex-col gap-4"
         >

@@ -7,6 +7,7 @@ import {
   EmptyTitle,
 } from "@workspace/ui/components/empty";
 import { Spinner } from "@workspace/ui/components/spinner";
+
 import { signOut } from "@/auth/mutations";
 import { authKeys } from "@/auth/queries";
 
