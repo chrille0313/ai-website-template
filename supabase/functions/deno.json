@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2",
+    "@supabase/supabase-js/cors": "npm:@supabase/supabase-js@2/cors",
+    "zod": "npm:zod@4"
+  }
+}
