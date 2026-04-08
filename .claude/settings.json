@@ -18,7 +18,7 @@
       "WebFetch(domain:lucide.dev)",
       "WebFetch(domain:turbo.build)",
       "WebFetch(domain:pnpm.io)",
-      "WebFetch(domain:biomejs.dev)",
+      "WebFetch(domain:oxc.rs)",
       "WebFetch(domain:commitlint.js.org)",
       "WebFetch(domain:conventionalcommits.org)",
       "WebFetch(domain:vitest.dev)",
@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} pnpm exec biome check --fix --unsafe {}"
+            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} sh -c 'pnpm exec oxlint --fix \"$1\" && pnpm exec oxfmt \"$1\"' _ {}"
           }
         ]
       }
